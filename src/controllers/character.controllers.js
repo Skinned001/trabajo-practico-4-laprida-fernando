@@ -60,4 +60,29 @@ export const createCharacter = async (req, res) => {
   res.status(201).json(character);
 };
 
+export const updateCharacter = async (req, res) => {
+  const { id } = req.params;
+  const character = await Character.findByPk(id);
 
+  if (!character) {
+    return res.status(404).json({ message: 'Personaje no encontrado.' });
+  }
+
+  const error = await validateCharacterData(req.body, true, parseInt(id));
+  if (error) return res.status(error.status).json({ message: error.message });
+
+  await character.update(req.body);
+  res.json(character);
+};
+
+export const deleteCharacter = async (req, res) => {
+  const { id } = req.params;
+  const character = await Character.findByPk(id);
+
+  if (!character) {
+    return res.status(404).json({ message: 'Personaje no encontrado.' });
+  }
+
+  await character.destroy();
+  res.json({ message: 'Personaje eliminado exitosamente.' });
+};
