@@ -14,13 +14,13 @@ app.use('/api/characters', characterRoutes);
 
 sequelize.authenticate()
   .then(async () => {
-    console.log('🟢 Conectado a la base de datos MySQL');
+    console.log('Conectado a la base de datos MySQL');
     await sequelize.sync();
-    console.log('📦 Modelos sincronizados');
+    console.log('Modelos sincronizados');
     app.listen(PORT, () => {// Levantar servidor
-      console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
+      console.log(` Servidor escuchando en http://localhost:${PORT}`);
     });
   })
   .catch((error) => {
-    console.error('🔴 Error al conectar a la base de datos:', error);
+    console.error('Error al conectar a la base de datos:', error);
   });
